@@ -6,3 +6,10 @@
 }
 
 <h2>@Model.Name</h2>
+<ul>
+    <li>@Model.MembershipType.Name</li>
+    @if (Model.Birthdate.HasValue)
+    {
+        <li>@Convert.ToString(string.Format("{0:MMMM dd, yyyy}",Model.Birthdate))</li>
+    }
+</ul>

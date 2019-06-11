@@ -10,7 +10,7 @@
         <tr>
             <th>#</th> 
             <th>Name</th> 
-            <th>Discount Rate</th>
+            <th>Membership Type</th>
             <th></th>
         </tr>
     </thead> 
@@ -20,7 +20,7 @@
             <tr>
                 <td>@customer.Id</td>
                 <td>@customer.Name</td>
-                <td>@customer.MembershipType.DiscountRate %</td>
+                <td>@customer.MembershipType.Name</td>
                 <td>@Html.ActionLink("View","Details",new {id = customer.Id},"")</td>
             </tr>
         }
