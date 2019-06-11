@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data.Entity;
 using System.Web;
 using System.Web.Mvc;
 using Vidly.Models;
@@ -10,46 +11,38 @@ namespace Vidly.Controllers
 {
     public class MoviesController : Controller
     {
-        // GET: Movies
-        public ActionResult Index()
+        private readonly ApplicationDbContext _context;
+
+        public MoviesController()
         {
-            return View(GetMovies());
+            _context = new ApplicationDbContext();
         }
 
-        public ActionResult Details (int? id)
+        protected override void Dispose(bool disposing)
         {
-            if (id == null)
-                id = 1;
-            return View(GetMovies().Find(m => m.Id == id));
+            base.Dispose(disposing);
+        }
+
+        public ActionResult Index()
+        {
+            return View(_context.Movies.Include(m => m.Genre).ToList());
+        }
+
+        public ActionResult Details (int id)
+        {
+            return View(_context.Movies.Include(m => m.Genre).SingleOrDefault(m => m.Id == id));
         }
 
         public ActionResult Random()
         {
-            var movie = GetMovies().Find(m => m.Id == 1);
+            /*var movie = GetMovies().Find(m => m.Id == 1);
             var customers = GetCustomers();
             
             return View(new RandomMovieViewModel {
                 Movie = movie,
                 Customers = customers
-            });
-        }
-
-        private List<Customer> GetCustomers()
-        {
-            return new List<Customer>
-            {
-                new Customer(){ Id = 1, Name = "Sam Dizon" },
-                new Customer(){ Id = 2, Name = "Angel Dizon"}
-            };
-        }
-
-        private List<Movie> GetMovies()
-        {
-            return new List<Movie>
-            {
-                new Movie {Id = 1, Name = "Shrek!"},
-                new Movie {Id = 2, Name = "Wall-E"}
-            };
+            });*/
+            return View();
         }
     }
 }
