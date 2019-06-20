@@ -11,7 +11,7 @@ namespace Vidly.Models
         public int Id { get; set; }
         
         //override default values using data annotations
-        [Required]
+        [Required(ErrorMessage = "Please enter customer name")]
         [StringLength(255)]
         public string Name { get; set; }
 
@@ -21,6 +21,7 @@ namespace Vidly.Models
         public bool IsSubscribedToNewsletter { get; set; }
         public MembershipType MembershipType { get; set; }
 
+        [Required(ErrorMessage = "Please select membership type")]
         [Display(Name = "Membership Type")]
         public byte MembershipTypeId { get; set; }
 
