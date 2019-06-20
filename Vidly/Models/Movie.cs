@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 
+
 namespace Vidly.Models
 {
     public class Movie
@@ -21,6 +22,7 @@ namespace Vidly.Models
         public DateTime DateAdded { get; set; }
 
         [Display(Name = "Number in stock")]
+        [Range(1,20)]
         public byte NumberInStock { get; set; }
         //navigation property
 
