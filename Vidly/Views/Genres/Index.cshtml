@@ -1,0 +1,37 @@
+﻿@model IEnumerable<Vidly.Models.Genre>
+
+@{
+    ViewBag.Title = "Movie Genres";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Movie Genres</h2>
+
+<div>
+    @Html.ActionLink("Create New", "Create", "Genres", null, new { @class = "btn btn-primary pull-right" })
+</div>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var genre in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => genre.Name)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = genre.Id }, new { @class = "btn btn-primary" }) |
+                    @Html.ActionLink("View", "Details", new { id = genre.Id }, new { @class = "btn btn-info" }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = genre.Id }, new { @class = "btn btn-danger" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
