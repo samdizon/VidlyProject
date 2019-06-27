@@ -10,6 +10,7 @@ using Vidly.Models;
 
 namespace Vidly.Controllers
 {
+    [Authorize(Roles = RoleName.CanManageMovies)]
     public class GenresController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

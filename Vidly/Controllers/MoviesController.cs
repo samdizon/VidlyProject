@@ -25,7 +25,7 @@ namespace Vidly.Controllers
 
         public ActionResult Index()
         {
-            if (User.IsInRole("CanManageMovies"))
+            if (User.IsInRole(RoleName.CanManageMovies))
                 return View("List");
             return View("ReadOnlyList");
         }

@@ -23,13 +23,10 @@ namespace Vidly.Controllers
         }
 
         public ActionResult Index()
-        {                                   //Add ToList Method to override deffered loading
-                                            //var customers = _context.Customers.ToList();
-                                            //call Include for eager loading of related objects
-                                            //to counter default lazy loading
-                                            //var customers = _context.Customers.Include(c => c.MembershipType).ToList();
-                                            //return View(customers);
-            return View();
+        {
+            if (User.IsInRole(RoleName.CanManageMovies))
+                return View("List");
+            return View("ReadOnlyList");
         }
 
         public ActionResult New()
