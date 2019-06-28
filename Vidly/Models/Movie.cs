@@ -26,11 +26,16 @@ namespace Vidly.Models
         public byte NumberInStock { get; set; }
         //navigation property
 
+        [Display(Name = "Number available")]
+        [Range(1,20)]
+        public byte NumberAvailable { get; set; }
+
         public Genre Genre { get; set; }
         //add foreign key
 
         [Required]
         [Display(Name = "Genre")]
         public short GenreId { get; set; }
+
     }
 }
