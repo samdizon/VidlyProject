@@ -9,13 +9,13 @@
     <div class="form-group" >
         <label>Customer</label>
         <div class="tt-container">
-            <input id="customer" required type="text" value="" class="form-control"/>
+            <input id="customer" name="customer" data-rule-validCustomer="true" required type="text" value="" class="form-control"/>
         </div>
     </div>
     <div class="form-group" >
         <label>Movie</label>
         <div class="tt-container">
-            <input id="movie" type="text" value="" class="form-control" />
+            <input id="movie" name="movie" data-rule-validMovie="true" type="text" value="" class="form-control" />
         </div>
     </div>
     <div class="row">
@@ -53,7 +53,6 @@
                        source: customers
                     }).on("typeahead:select", function (e, customer) {
                        vm.customerId = customer.id;
-                       console.log(vm);
                    });
 
                var movies = new Bloodhound({
@@ -77,22 +76,37 @@
                        $("#movies").append("<li class='list-group-item'>" + movie.name + "</li>");
                        $("#movie").typeahead("val", "");
                        vm.movieIds.push(movie.id);
-                       console.log(vm);
                    });
 
-               $("#newRental").validate({
+               $.validator.addMethod("validCustomer", function () {
+                   return vm.customerId && vm.customerId !== 0;
+               }, "Please select valid customer");
+
+               $.validator.addMethod("validMovie", function () {
+                   return vm.movieIds.length > 0; 
+               }, "Please select valid movie");
+
+               var validator = $("#newRental").validate({
                    submitHandler: function () {
-                       console.log(vm);
-                       //e.preventDefault();
                        $.ajax({
                            url: "/api/newRentals",
                            method: "post",
                            data: vm
                        }).done(function () {
                            toastr.success("Rental successfully recorded.");
-                       }).fail(function () {
+                           $("#customer").typeahead("val", "");
+                           $("#movie").typeahead("val", "");
+                           $("#movies").empty();
+
+                           vm = { movieIds: [] };
+
+                           validator.resetForm();
+
+                           }).fail(function () {
                            toastr.error("Somthing went wrong.");
-                       });
+                           });
+
+                       return false;
                    }
                });
            });
