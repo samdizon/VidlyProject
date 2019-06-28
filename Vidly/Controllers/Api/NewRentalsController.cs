@@ -6,7 +6,6 @@ using System.Net.Http;
 using System.Web.Http;
 using Vidly.Dtos;
 using Vidly.Models;
-using System.Data.Entity.Validation;
 
 namespace Vidly.Controllers.Api
 {
@@ -42,24 +41,7 @@ namespace Vidly.Controllers.Api
                 _context.Rental.Add(rental);
             }
 
-            //_context.SaveChanges();
-
-            try
-            {
-                _context.SaveChanges();
-            }
-            catch (DbEntityValidationException ex)
-            {
-                var log = "";
-                foreach (var entityValidationErrors in ex.EntityValidationErrors)
-                {
-                    foreach (var validationError in entityValidationErrors.ValidationErrors)
-                    {
-                        log = ("Property: " + validationError.PropertyName + " Error: " + validationError.ErrorMessage);
-                    }
-                }
-                return BadRequest(log);
-            }
+            _context.SaveChanges();
 
             return Ok();
         }
