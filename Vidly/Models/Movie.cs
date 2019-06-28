@@ -27,7 +27,6 @@ namespace Vidly.Models
         //navigation property
 
         [Display(Name = "Number available")]
-        [Range(1,20)]
         public byte NumberAvailable { get; set; }
 
         public Genre Genre { get; set; }

@@ -80,19 +80,20 @@
                        console.log(vm);
                    });
 
-
-
-               $("#newRental").submit(function (e) {
-                   e.preventDefault();
-                   $.ajax({
-                       url: "/api/newRentals",
-                       method: "post",
-                       data: vm
-                   }).done(function () {
+               $("#newRental").validate({
+                   submitHandler: function () {
+                       console.log(vm);
+                       //e.preventDefault();
+                       $.ajax({
+                           url: "/api/newRentals",
+                           method: "post",
+                           data: vm
+                       }).done(function () {
                            toastr.success("Rental successfully recorded.");
                        }).fail(function () {
                            toastr.error("Somthing went wrong.");
                        });
+                   }
                });
            });
        </script> 
